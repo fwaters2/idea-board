@@ -1,0 +1,18 @@
+/* remove bullets from list items */
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  /* fades in ul after 800ms to avoid all cards sliding in from right */
+  opacity: 0;
+  animation: fade-in 0.8s ease-in-out 0.8s forwards;
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

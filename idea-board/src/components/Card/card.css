@@ -1,0 +1,117 @@
+.card {
+  flex: 1;
+  padding: 20px var(--padding) 5px;
+  min-width: 400px;
+  min-height: 300px;
+  border-radius: 10px;
+  box-shadow: var(--box-shadow);
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  gap: 10px;
+  background: white;
+  box-sizing: border-box;
+  transition: all 0.2s;
+}
+
+.card:hover {
+  box-shadow: var(--box-shadow-hover);
+  transform: scale(1.01);
+}
+
+.card__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.card__subheader_container {
+  display: flex;
+  column-gap: 10px;
+}
+
+.card__updated {
+  margin: 0;
+}
+.card__status_indicator {
+  height: 14px;
+  width: 14px;
+  position: relative;
+}
+
+.card__delete_btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--dimmed-color);
+  transition: all 0.2s;
+}
+
+.card__delete_btn:hover {
+  transform: scale(1.2);
+  color: var(--text-color);
+}
+
+.card__footer {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+}
+
+.card__character_count {
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--dimmed-color);
+}
+
+.card__created {
+  text-align: right;
+  flex: 1;
+}
+
+textarea {
+  flex: 1;
+  resize: none;
+  overflow: hidden;
+  height: 100%;
+  border: none;
+  border-radius: 5px;
+  border: none;
+  font-family: unset;
+  font-size: 24px;
+}
+textarea:focus {
+  outline: none;
+  background-color: var(--editing-bg-color);
+}
+
+input {
+  flex: 1;
+  resize: none;
+  height: 100%;
+  border: none;
+  border-radius: 5px;
+  border: none;
+  font-family: unset;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text-color);
+  width: 100%;
+  /* truncate text */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+input:focus {
+  outline: none;
+  background-color: var(--editing-bg-color);
+}
+
+.error {
+  color: red;
+}
+.timestamp {
+  color: var(--dimmed-color);
+  font-size: 12px;
+  font-weight: 400;
+}

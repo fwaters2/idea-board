@@ -1,0 +1,16 @@
+:root {
+  --dimmed-color: #a9a9a9;
+  --text-color: #36454f;
+  --spacing: 40px;
+  --padding: 30px;
+  --box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.25);
+  --box-shadow-hover: 0px 6px 10px rgba(0, 0, 0, 0.4);
+  --editing-color: #daa520;
+  --editing-bg-color: #daa52020;
+}
+
+.cards {
+  display: grid;
+  gap: 40px;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+}
