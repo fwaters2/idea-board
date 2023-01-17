@@ -1,0 +1,21 @@
+main {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-y: hidden;
+}
+header {
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+  justify-content: space-between;
+  padding: var(--padding);
+  border-bottom: 1px solid var(--text-color);
+}
+
+.body {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--padding);
+  background: rgb(237, 237, 237);
+}
