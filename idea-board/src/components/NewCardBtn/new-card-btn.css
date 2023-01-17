@@ -1,0 +1,16 @@
+.new_card_btn {
+  background: #5cdb5c80;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 15px;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text-color);
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: var(--box-shadow);
+}
+.new_card_btn:hover {
+  box-shadow: var(--box-shadow-hover);
+  transform: scale(1.01);
+}

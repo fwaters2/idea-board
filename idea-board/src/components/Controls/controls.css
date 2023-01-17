@@ -1,0 +1,35 @@
+.controls-container {
+  display: flex;
+  align-items: center;
+  column-gap: var(--spacing);
+}
+
+.control_btn {
+  border: none;
+  border-radius: 10px;
+  padding: 10px 15px;
+  font-size: 20px;
+  font-weight: 700;
+  width: 150px;
+  color: var(--text-color);
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: var(--box-shadow);
+  display: flex;
+  column-gap: 10px;
+  flex-wrap: nowrap;
+  align-items: center;
+}
+
+.control_btn > span:first-child {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text-color);
+  width: 20px;
+  line-height: 24px;
+}
+
+.control_btn:hover {
+  box-shadow: var(--box-shadow-hover);
+  transform: scale(1.01);
+}
