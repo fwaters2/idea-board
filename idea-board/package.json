@@ -1,6 +1,7 @@
 {
-  "name": "clearscore-fed-test",
+  "name": "idea-board",
   "version": "0.1.0",
+  "homepage": "https://fwaters2.github.io/idea-board",
   "private": true,
   "dependencies": {
     "dayjs": "^1.11.7",
@@ -13,13 +14,17 @@
   "scripts": {
     "start": "react-scripts start",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "build": "react-scripts build",
+    "predeploy": "yarn build",
+    "deploy": "gh-pages -d build"
   },
   "devDependencies": {
     "@types/enzyme": "^3.10.12",
     "@types/uuid": "^9.0.0",
     "enzyme": "3.3.0",
     "enzyme-adapter-react-16": "1.1.1",
+    "gh-pages": "^4.0.0",
     "react-test-renderer": "16.4.0"
   },
   "browserslist": {
