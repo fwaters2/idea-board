@@ -3,9 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "dayjs": "^1.11.7",
+    "framer-motion": "^8.4.3",
     "react": "^18.2.0",
     "react-dom": "18.2.0",
     "react-scripts": "^5.0.1",
+    "uuid": "^9.0.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -13,6 +16,8 @@
     "eject": "react-scripts eject"
   },
   "devDependencies": {
+    "@types/enzyme": "^3.10.12",
+    "@types/uuid": "^9.0.0",
     "enzyme": "3.3.0",
     "enzyme-adapter-react-16": "1.1.1",
     "react-test-renderer": "16.4.0"
