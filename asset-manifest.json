@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/idea-board/static/css/main.83f1da55.css",
+    "main.js": "/idea-board/static/js/main.2eca78ea.js",
+    "index.html": "/idea-board/index.html",
+    "main.83f1da55.css.map": "/idea-board/static/css/main.83f1da55.css.map",
+    "main.2eca78ea.js.map": "/idea-board/static/js/main.2eca78ea.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.83f1da55.css",
+    "static/js/main.2eca78ea.js"
+  ]
+}
