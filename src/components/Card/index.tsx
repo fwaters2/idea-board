@@ -1,76 +1,17 @@
-import dayjs from "dayjs";
 import React, {
   ChangeEvent,
   FocusEvent,
   KeyboardEvent,
   useCallback,
-  useEffect,
   useState,
 } from "react";
+import dayjs from "dayjs";
 import { MAX_CHARACTER_COUNT } from "../../constants";
 import { Idea, Status } from "../../types";
 import { UpdateNotification } from "../UpdateNotification";
 import "./card.css";
-
-interface InlineEditProps {
-  value: string;
-  setValue: (value: string) => void;
-}
-
-const InlineEdit = ({ value, setValue }: InlineEditProps) => {
-  const [editingValue, setEditingValue] = useState(value);
-
-  const onChange = (event: ChangeEvent<HTMLInputElement>) =>
-    setEditingValue(event.target.value);
-
-  const onBlur = (event: FocusEvent<HTMLInputElement>) => {
-    // If the value has changed, update the card
-    if (event.target.value !== value) {
-      setValue(event.target.value);
-    }
-  };
-  const onKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === "Enter" || event.key === "Escape") {
-      event.currentTarget.blur();
-    }
-  };
-
-  return (
-    <input
-      autoFocus
-      type="text"
-      aria-label="Title"
-      value={editingValue}
-      onChange={onChange}
-      onKeyDown={onKeyDown}
-      onBlur={onBlur}
-    />
-  );
-};
-
-interface MultiLineEditProps {
-  editingValue: string;
-  onBlur: (event: FocusEvent<HTMLTextAreaElement>) => void;
-  onChange: (event: ChangeEvent<HTMLTextAreaElement>) => void;
-  onKeyDown: (event: KeyboardEvent<HTMLTextAreaElement>) => void;
-}
-
-const MultilineEdit = ({
-  editingValue,
-  onBlur,
-  onChange,
-  onKeyDown,
-}: MultiLineEditProps) => {
-  return (
-    <textarea
-      aria-label="Description"
-      value={editingValue}
-      onBlur={onBlur}
-      onChange={onChange}
-      onKeyDown={onKeyDown}
-    />
-  );
-};
+import { InlineEdit } from "./components/InlineEdit";
+import { MultilineEdit } from "./components/MultilineEdit";
 
 interface CardProps {
   idea: Idea;
@@ -116,7 +57,6 @@ export const Card = (props: CardProps) => {
   );
 
   const onBlur = (event: FocusEvent<HTMLTextAreaElement>) => {
-    // If the value hasn't changed, do nothing
     if (event.target.value === description) return;
     const tooManyCharacters = event.target.value.length > MAX_CHARACTER_COUNT;
     if (event.target.value.trim() === "" || tooManyCharacters) {
@@ -127,7 +67,7 @@ export const Card = (props: CardProps) => {
   };
 
   return (
-    <div className="card">
+    <li className="card">
       <div className="card__header">
         <div style={{ flex: 1 }}>
           <InlineEdit
@@ -174,6 +114,6 @@ export const Card = (props: CardProps) => {
           created
         ).fromNow()}`}</p>
       </div>
-    </div>
+    </li>
   );
 };

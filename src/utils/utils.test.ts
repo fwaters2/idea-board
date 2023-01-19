@@ -4,8 +4,8 @@ import { sortBy } from ".";
 describe("sortBy", () => {
   it("should sort by title", () => {
     const ideas = [
-      { title: "A", created: new Date() },
       { title: "B", created: new Date() },
+      { title: "A", created: new Date() },
     ];
     const sortedIdeas = ideas.sort(sortBy(SortBy.TITLE, SortDirection.ASC));
     expect(sortedIdeas[0].title).toBe("A");
@@ -13,8 +13,8 @@ describe("sortBy", () => {
   });
   it("should sort by created", () => {
     const ideas = [
-      { title: "A", created: new Date("2020-01-01") },
       { title: "B", created: new Date("2020-01-02") },
+      { title: "A", created: new Date("2020-01-01") },
     ];
     const sortedIdeas = ideas.sort(sortBy(SortBy.CREATED, SortDirection.ASC));
     expect(sortedIdeas[0].title).toBe("A");

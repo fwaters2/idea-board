@@ -52,11 +52,7 @@ export const UpdateNotification = ({ status }: { status: Status }) => {
     }
   }, [status]);
   return (
-    <div
-      className={
-        isVisible ? "card__updating--visible" : "card__updating--hidden"
-      }
-    >
+    <div className={`${isVisible ? "visible" : "hidden"}`}>
       {status === Status.SUCCESS ? <GreenCircleWithCheckSvg /> : <Loader />}
     </div>
   );
