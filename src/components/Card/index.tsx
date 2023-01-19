@@ -10,8 +10,6 @@ import { MAX_CHARACTER_COUNT } from "../../constants";
 import { Idea, Status } from "../../types";
 import { UpdateNotification } from "../UpdateNotification";
 import "./card.css";
-import { InlineEdit } from "./components/InlineEdit";
-import { MultilineEdit } from "./components/MultilineEdit";
 
 interface CardProps {
   idea: Idea;
@@ -22,24 +20,13 @@ interface CardProps {
 export const Card = (props: CardProps) => {
   const { idea, handleDeleteCard, handleUpdateCard } = props;
   const { id, title, description, created, updated } = idea;
-  const [editingValue, setEditingValue] = useState(description);
+  const [editingTitleValue, setEditingTitleValue] = useState(title);
+  const [editingDescriptionValue, setEditingDescriptionValue] =
+    useState(description);
   const [status, setStatus] = useState(Status.IDLE);
-  const charactersRemaining = MAX_CHARACTER_COUNT - editingValue.length;
+  const charactersRemaining =
+    MAX_CHARACTER_COUNT - editingDescriptionValue.length;
   const noCharactersRemaining = charactersRemaining <= 0;
-
-  const onChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
-    const charactersRemoved =
-      event.currentTarget.value.length < editingValue.length;
-    if (charactersRemoved || !noCharactersRemaining) {
-      setEditingValue(event.target.value);
-    }
-  };
-
-  const onKeyDown = (event: KeyboardEvent<HTMLTextAreaElement>) => {
-    if (event.key === "Enter" || event.key === "Escape") {
-      event.currentTarget.blur();
-    }
-  };
 
   const onUpdate = useCallback(
     ({ key, value }: { key: keyof Idea; value: Idea[keyof Idea] }) => {
@@ -56,13 +43,37 @@ export const Card = (props: CardProps) => {
     [handleUpdateCard, id, idea]
   );
 
-  const onBlur = (event: FocusEvent<HTMLTextAreaElement>) => {
+  const onTitleChange = (event: ChangeEvent<HTMLInputElement>) =>
+    setEditingTitleValue(event.target.value);
+
+  const onDescriptionChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
+    const charactersRemoved =
+      event.currentTarget.value.length < editingDescriptionValue.length;
+    if (charactersRemoved || !noCharactersRemaining) {
+      setEditingDescriptionValue(event.target.value);
+    }
+  };
+
+  const onTitleBlur = (event: FocusEvent<HTMLInputElement>) => {
+    if (event.target.value === title) return;
+    onUpdate({ key: "title", value: event.target.value });
+  };
+
+  const onDescriptionBlur = (event: FocusEvent<HTMLTextAreaElement>) => {
     if (event.target.value === description) return;
     const tooManyCharacters = event.target.value.length > MAX_CHARACTER_COUNT;
     if (event.target.value.trim() === "" || tooManyCharacters) {
-      setEditingValue(description);
+      setEditingDescriptionValue(description);
     } else {
       onUpdate({ key: "description", value: event.target.value });
+    }
+  };
+
+  const onKeyDown = (
+    event: KeyboardEvent<HTMLTextAreaElement | HTMLInputElement>
+  ) => {
+    if (event.key === "Enter" || event.key === "Escape") {
+      event.currentTarget.blur();
     }
   };
 
@@ -70,11 +81,13 @@ export const Card = (props: CardProps) => {
     <li className="card">
       <div className="card__header">
         <div style={{ flex: 1 }}>
-          <InlineEdit
-            value={title}
-            setValue={(newValue: string) => {
-              onUpdate({ key: "title", value: newValue });
-            }}
+          <input
+            autoFocus
+            aria-label="Title"
+            value={editingTitleValue}
+            onChange={onTitleChange}
+            onKeyDown={onKeyDown}
+            onBlur={onTitleBlur}
           />
           <div className="card__subheader_container">
             {updated && (
@@ -96,11 +109,12 @@ export const Card = (props: CardProps) => {
           X
         </button>
       </div>
-      <MultilineEdit
-        editingValue={editingValue}
-        onChange={onChange}
+      <textarea
+        aria-label="Description"
+        value={editingDescriptionValue}
+        onBlur={onDescriptionBlur}
+        onChange={onDescriptionChange}
         onKeyDown={onKeyDown}
-        onBlur={onBlur}
       />
       <div className="card__footer">
         {charactersRemaining < 20 && (
