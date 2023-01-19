@@ -1,8 +1,13 @@
 {
   "name": "idea-board",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "homepage": "https://fwaters2.github.io/idea-board",
   "private": true,
+  "license": "UNLICENSED",
+  "author": {
+    "name": "Forrest Waters",
+    "email": "forrestwaters@gmail.com"
+  },
   "dependencies": {
     "dayjs": "^1.11.7",
     "framer-motion": "^8.4.3",
