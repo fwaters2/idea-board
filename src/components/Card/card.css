@@ -1,8 +1,7 @@
 .card {
   flex: 1;
   padding: 20px var(--padding) 5px;
-  min-width: 400px;
-  min-height: 300px;
+  min-height: 345px;
   border-radius: 10px;
   box-shadow: var(--box-shadow);
   display: flex;
@@ -12,6 +11,11 @@
   background: white;
   box-sizing: border-box;
   transition: all 0.2s;
+}
+@media screen and (min-width: 768px) {
+  .card {
+    min-height: 300px;
+  }
 }
 
 .card:hover {

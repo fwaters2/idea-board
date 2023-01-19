@@ -8,9 +8,3 @@
   --editing-color: #daa520;
   --editing-bg-color: #daa52020;
 }
-
-.cards {
-  display: grid;
-  gap: 40px;
-  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-}

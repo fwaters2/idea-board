@@ -1,16 +1,16 @@
 .controls-container {
   display: flex;
   align-items: center;
-  column-gap: var(--spacing);
+  column-gap: 20px;
 }
 
 .control_btn {
   border: none;
   border-radius: 10px;
-  padding: 10px 15px;
-  font-size: 20px;
+  padding: 8px 12px;
+  font-size: 12px;
   font-weight: 700;
-  width: 150px;
+  width: 100px;
   color: var(--text-color);
   cursor: pointer;
   transition: all 0.2s;
@@ -22,14 +22,32 @@
 }
 
 .control_btn > span:first-child {
-  font-size: 20px;
+  font-size: 12px;
   font-weight: 700;
   color: var(--text-color);
-  width: 20px;
-  line-height: 24px;
+  width: 10px;
+  line-height: 12px;
 }
 
 .control_btn:hover {
   box-shadow: var(--box-shadow-hover);
   transform: scale(1.01);
+}
+@media screen and (min-width: 768px) {
+  .controls-container {
+    column-gap: var(--spacing);
+  }
+
+  .control_btn {
+    padding: 10px 15px;
+    font-size: 20px;
+    width: 150px;
+  }
+
+  .control_btn > span:first-child {
+    font-size: 20px;
+    font-weight: 700;
+    width: 20px;
+    line-height: 24px;
+  }
 }

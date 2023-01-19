@@ -78,7 +78,7 @@ export const Card = (props: CardProps) => {
   };
 
   return (
-    <li className="card">
+    <div className="card">
       <div className="card__header">
         <div style={{ flex: 1 }}>
           <input
@@ -128,6 +128,6 @@ export const Card = (props: CardProps) => {
           created
         ).fromNow()}`}</p>
       </div>
-    </li>
+    </div>
   );
 };
