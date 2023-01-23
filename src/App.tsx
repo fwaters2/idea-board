@@ -1,24 +1,23 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useMemo, useReducer, useRef } from "react";
 import dayjs from "dayjs";
-import { v4 as uuid } from "uuid";
 import "./App.css";
 import relativeTime from "dayjs/plugin/relativeTime";
-import { AppState, Idea, SortDirection, SortKey } from "./types";
+import { Idea, SortKey } from "./types";
 import { Cards } from "./components/Cards";
 import { sortBy } from "./utils";
 import { Card } from "./components/Card";
 import { Layout } from "./components/Layout";
 import { Controls } from "./components/Controls";
-import { DebugControls } from "./components/Controls/DebugControls";
 import { EmptyPlaceholder } from "./components/EmptyPlaceholder";
 import { NewCardBtn } from "./components/NewCardBtn";
+import { ActionKind, appReducer } from "./AppReducer";
+import { initialState } from "./constants";
 
 dayjs.extend(relativeTime);
 
 export const App = () => {
-  const [ideas, setIdeas] = useState<Idea[]>([]);
-  const [sortKey, setSortKey] = useState<SortKey>("created");
-  const [sortDirection, setSortDirection] = useState<SortDirection>("desc");
+  const [state, dispatch] = useReducer(appReducer, initialState);
+  const { ideas, sortKey, sortDirection } = state;
 
   // scroll to top when card is added or sortkey is changed
   const bodyRef = useRef<HTMLElement>(null);
@@ -37,64 +36,21 @@ export const App = () => {
   }, [sortKey, ideas]);
 
   useEffect(() => {
-    const cards = localStorage.getItem("cards");
-    if (cards) {
-      setIdeas(JSON.parse(cards));
-    }
+    dispatch({ type: ActionKind.FETCH_IDEAS });
   }, []);
 
   const handleDeleteCard = (cardId: string) => {
-    const newCards = ideas.filter((card) => card.id !== cardId);
-    setIdeas(newCards);
-    localStorage.setItem("cards", JSON.stringify(newCards));
+    dispatch({ type: ActionKind.DELETE_IDEA, payload: { cardId } });
   };
   const handleAddCard = () => {
-    const newId = uuid().toString();
-    const newCard = {
-      id: newId,
-      title: "New Idea",
-      description: "Click me to add a description",
-      created: new Date(),
-    };
-    const newCards = [newCard, ...ideas];
-    setIdeas(newCards);
-    localStorage.setItem("cards", JSON.stringify(newCards));
-    // reset sortkey and direction
-    setSortDirection("desc");
-    setSortKey("created");
+    dispatch({ type: ActionKind.CREATE_IDEA });
   };
 
-  const handleUpdateCard = (cardId: string, updatedCard: Idea) => {
-    // using local storage as state maybe stale
-    const cards = localStorage.getItem("cards");
-    let newCards = [];
-    if (cards) {
-      const localStorageIdeas = JSON.parse(cards) as Idea[];
-
-      newCards = localStorageIdeas.map((idea) => {
-        if (idea.id === cardId) {
-          return {
-            ...idea,
-            ...updatedCard,
-            updated: new Date(),
-          };
-        }
-        return idea;
-      });
-    } else {
-      newCards = ideas.map((idea) => {
-        if (idea.id === cardId) {
-          return {
-            ...idea,
-            ...updatedCard,
-            updated: new Date(),
-          };
-        }
-        return idea;
-      });
-    }
-    setIdeas(newCards);
-    localStorage.setItem("cards", JSON.stringify(newCards));
+  const handleUpdateCard = (cardId: string, updatedIdea: Partial<Idea>) => {
+    dispatch({
+      type: ActionKind.UPDATE_IDEA,
+      payload: { cardId, updatedIdea },
+    });
   };
 
   const sortedIdeas = useMemo(
@@ -102,9 +58,8 @@ export const App = () => {
     [ideas, sortKey, sortDirection]
   );
 
-  const onClickSort = (key: SortKey) => {
-    setSortKey(key);
-    setSortDirection(sortDirection === "asc" ? "desc" : "asc");
+  const onClickSort = (sortKey: SortKey) => {
+    dispatch({ type: ActionKind.SET_SORT_KEY, payload: { sortKey } });
   };
 
   return (
@@ -112,7 +67,7 @@ export const App = () => {
       <Layout.Header>
         <div style={{ display: "flex" }}>
           <h1 style={{ flex: 1 }}>Idea Board</h1>
-          <DebugControls setIdeas={setIdeas} />
+          {/* <DebugControls setIdeas={setIdeas} /> */}
         </div>
         <Controls
           sortKey={sortKey}

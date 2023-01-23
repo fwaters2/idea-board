@@ -1,6 +1,12 @@
-import { Idea } from "./types";
+import { AppState, Idea } from "./types";
 
 export const MAX_CHARACTER_COUNT = 144;
+
+export const initialState: AppState = {
+  ideas: [],
+  sortKey: "created",
+  sortDirection: "desc",
+};
 
 export const dummy_card_data: Idea[] = [
   {
