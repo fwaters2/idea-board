@@ -2,24 +2,24 @@ import { v4 as uuid } from "uuid";
 import { initialState } from "./constants";
 import { AppState, Idea, SortKey } from "./types";
 
-export enum ActionKind {
-  CREATE_IDEA = "CREATE_IDEA",
-  FETCH_IDEAS = "FETCH_IDEAS",
-  UPDATE_IDEA = "UPDATE_IDEA",
-  DELETE_IDEA = "DELETE_IDEA",
-  SET_SORT_KEY = "SET_SORT_KEY",
-}
+export const ActionKind = {
+  CREATE_IDEA: "CREATE_IDEA",
+  FETCH_IDEAS: "FETCH_IDEAS",
+  UPDATE_IDEA: "UPDATE_IDEA",
+  DELETE_IDEA: "DELETE_IDEA",
+  SET_SORT_KEY: "SET_SORT_KEY",
+} as const;
 
 interface CreateAction {
-  type: ActionKind.CREATE_IDEA;
+  type: "CREATE_IDEA";
 }
 
 interface FetchAction {
-  type: ActionKind.FETCH_IDEAS;
+  type: "FETCH_IDEAS";
 }
 
 interface UpdateAction {
-  type: ActionKind.UPDATE_IDEA;
+  type: "UPDATE_IDEA";
   payload: {
     cardId: string;
     updatedIdea: Partial<Idea>;
@@ -27,14 +27,14 @@ interface UpdateAction {
 }
 
 interface DeleteAction {
-  type: ActionKind.DELETE_IDEA;
+  type: "DELETE_IDEA";
   payload: {
     cardId: string;
   };
 }
 
 interface SortAction {
-  type: ActionKind.SET_SORT_KEY;
+  type: "SET_SORT_KEY";
   payload: {
     sortKey: SortKey;
   };
@@ -60,7 +60,7 @@ export const appReducer: (state: AppState, action: AppAction) => AppState = (
   action
 ) => {
   switch (action.type) {
-    case ActionKind.CREATE_IDEA: {
+    case "CREATE_IDEA": {
       const newIdea: Idea = {
         id: uuid(),
         title: "New Idea",
@@ -77,14 +77,14 @@ export const appReducer: (state: AppState, action: AppAction) => AppState = (
         sortDirection: initialState.sortDirection,
       };
     }
-    case ActionKind.FETCH_IDEAS: {
+    case "FETCH_IDEAS": {
       const ideas: Idea[] = fetchIdeas();
       return {
         ...state,
         ideas,
       };
     }
-    case ActionKind.UPDATE_IDEA: {
+    case "UPDATE_IDEA": {
       const { cardId, updatedIdea } = action.payload;
       const ideas = state.ideas.map((idea: Idea) => {
         if (idea.id === cardId) {
@@ -101,7 +101,7 @@ export const appReducer: (state: AppState, action: AppAction) => AppState = (
         ideas,
       };
     }
-    case ActionKind.DELETE_IDEA: {
+    case "DELETE_IDEA": {
       const { cardId } = action.payload;
       const ideas = state.ideas.filter((idea: Idea) => idea.id !== cardId);
       postIdeas(ideas);
@@ -110,7 +110,7 @@ export const appReducer: (state: AppState, action: AppAction) => AppState = (
         ideas,
       };
     }
-    case ActionKind.SET_SORT_KEY: {
+    case "SET_SORT_KEY": {
       const { sortKey } = action.payload;
       const sortDirection =
         state.sortKey === sortKey && state.sortDirection === "asc"
