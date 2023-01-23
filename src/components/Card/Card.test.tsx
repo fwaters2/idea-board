@@ -1,5 +1,5 @@
+import { render } from "@testing-library/react";
 import React from "react";
-import { shallow } from "enzyme";
 import { Card } from ".";
 
 jest.mock("dayjs", () => () => ({
@@ -8,7 +8,7 @@ jest.mock("dayjs", () => () => ({
   extend: () => {},
 }));
 
-it("renders without crashing", () => {
+test("renders without crashing", () => {
   const props = {
     idea: {
       id: "1",
@@ -20,5 +20,5 @@ it("renders without crashing", () => {
     handleDeleteCard: () => {},
     handleUpdateCard: () => {},
   };
-  shallow(<Card {...props} />);
+  render(<Card {...props} />);
 });

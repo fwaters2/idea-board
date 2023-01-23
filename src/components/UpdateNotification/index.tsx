@@ -7,7 +7,7 @@ import "./update-notification.css";
 
 const Loader = () => {
   return (
-    <div className="spinner">
+    <div className="spinner" data-testid="Loader">
       <div className="bounce" />
     </div>
   );
@@ -19,6 +19,7 @@ const GreenCircleWithCheckSvg = () => {
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      data-testid="GreenCircleWithCheckSvg"
     >
       <circle cx="12" cy="12" r="12" fill="#00C48C" />
       <path

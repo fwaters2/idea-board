@@ -1,7 +1,33 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Controls component should render correctly 1`] = `
-ShallowWrapper {
-  "length": 1,
-}
+<div>
+  <div
+    class="controls-container"
+  >
+    <div>
+      NewCardBtn
+    </div>
+    <button
+      class="control_btn"
+    >
+      <span>
+        ↓
+      </span>
+      <span>
+        Created
+      </span>
+    </button>
+    <button
+      class="control_btn"
+    >
+      <span>
+        ⇅
+      </span>
+      <span>
+        Title
+      </span>
+    </button>
+  </div>
+</div>
 `;

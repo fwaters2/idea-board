@@ -1,26 +1,20 @@
 import React from "react";
-import { shallow, ShallowWrapper } from "enzyme";
 import { NewCardBtn } from ".";
+import { render } from "@testing-library/react";
 
 describe("NewCardBtn component", () => {
-  let wrapper: ShallowWrapper<any, Readonly<{}>, React.Component<{}, {}, any>>;
-  const handleAddCard = jest.fn();
-  const props = { handleAddCard };
+  const props = {
+    handleAddCard: jest.fn(),
+  };
 
-  beforeEach(() => {
-    wrapper = shallow(<NewCardBtn {...props} />);
+  test("should render correctly", () => {
+    const { container } = render(<NewCardBtn {...props} />);
+    expect(container).toMatchSnapshot();
   });
 
-  afterEach(() => {
-    handleAddCard.mockClear();
-  });
-
-  it("should render correctly", () => {
-    expect(wrapper).toMatchSnapshot();
-  });
-
-  it("should call handleAddCard function when button is clicked", () => {
-    wrapper.simulate("click");
-    expect(handleAddCard).toHaveBeenCalled();
+  test("should call handleAddCard function when button is clicked", () => {
+    const { getByRole } = render(<NewCardBtn {...props} />);
+    getByRole("button").click();
+    expect(props.handleAddCard).toHaveBeenCalled();
   });
 });

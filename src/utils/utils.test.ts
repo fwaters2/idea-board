@@ -1,7 +1,7 @@
 import { sortBy } from ".";
 
 describe("sortBy", () => {
-  it("should sort by title", () => {
+  test("should sort by title", () => {
     const ideas = [
       { title: "B", created: new Date() },
       { title: "A", created: new Date() },
@@ -10,7 +10,7 @@ describe("sortBy", () => {
     expect(sortedIdeas[0].title).toBe("A");
     expect(sortedIdeas[1].title).toBe("B");
   });
-  it("should sort by created", () => {
+  test("should sort by created", () => {
     const ideas = [
       { title: "B", created: new Date("2020-01-02") },
       { title: "A", created: new Date("2020-01-01") },
@@ -19,7 +19,7 @@ describe("sortBy", () => {
     expect(sortedIdeas[0].title).toBe("A");
     expect(sortedIdeas[1].title).toBe("B");
   });
-  it("should sort by title descending", () => {
+  test("should sort by title descending", () => {
     const ideas = [
       { title: "A", created: new Date() },
       { title: "B", created: new Date() },
@@ -28,7 +28,7 @@ describe("sortBy", () => {
     expect(sortedIdeas[0].title).toBe("B");
     expect(sortedIdeas[1].title).toBe("A");
   });
-  it("should sort by created descending", () => {
+  test("should sort by created descending", () => {
     const ideas = [
       { title: "A", created: new Date("2020-01-01") },
       { title: "B", created: new Date("2020-01-02") },

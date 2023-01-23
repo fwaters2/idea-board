@@ -1,7 +1,24 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Cards component should render correctly 1`] = `
-ShallowWrapper {
-  "length": 1,
-}
+<div>
+  <ul
+    class="cards"
+  >
+    <li
+      style="opacity: 0; transform: translateX(-500px) translateZ(0);"
+    >
+      <div>
+        1
+      </div>
+    </li>
+    <li
+      style="opacity: 0; transform: translateX(-500px) translateZ(0);"
+    >
+      <div>
+        2
+      </div>
+    </li>
+  </ul>
+</div>
 `;

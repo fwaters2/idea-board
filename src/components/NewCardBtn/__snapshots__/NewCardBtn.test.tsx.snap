@@ -1,7 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`NewCardBtn component should render correctly 1`] = `
-ShallowWrapper {
-  "length": 1,
-}
+<div>
+  <button
+    class="new_card_btn"
+  >
+    +
+  </button>
+</div>
 `;
