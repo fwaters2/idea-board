@@ -12,6 +12,7 @@ import { EmptyPlaceholder } from "./components/EmptyPlaceholder";
 import { NewCardBtn } from "./components/NewCardBtn";
 import { ActionKind, appReducer } from "./AppReducer";
 import { initialState } from "./constants";
+import { useScrollToTopOnSort } from "./hooks/useScrollToTopOnSort";
 
 dayjs.extend(relativeTime);
 
@@ -19,29 +20,13 @@ export const App = () => {
   const [state, dispatch] = useReducer(appReducer, initialState);
   const { ideas, sortKey, sortDirection } = state;
 
-  // scroll to top when card is added or sortkey is changed
-  const bodyRef = useRef<HTMLElement>(null);
-  // previous idea count
-  const prevIdeaCount = useRef(0);
-  const prevSortKey = useRef("created");
-  useEffect(() => {
-    if (
-      bodyRef.current &&
-      (prevIdeaCount.current < ideas.length || prevSortKey.current !== sortKey)
-    ) {
-      bodyRef.current.scrollTop = 0;
-    }
-    prevIdeaCount.current = ideas.length;
-    prevSortKey.current = sortKey;
-  }, [sortKey, ideas]);
+  const bodyRef = useScrollToTopOnSort(sortKey, ideas);
 
+  // fetch ideas on initial render
   useEffect(() => {
     dispatch({ type: ActionKind.FETCH_IDEAS });
   }, []);
 
-  const handleDeleteCard = (cardId: string) => {
-    dispatch({ type: ActionKind.DELETE_IDEA, payload: { cardId } });
-  };
   const handleAddCard = () => {
     dispatch({ type: ActionKind.CREATE_IDEA });
   };
@@ -51,6 +36,10 @@ export const App = () => {
       type: ActionKind.UPDATE_IDEA,
       payload: { cardId, updatedIdea },
     });
+  };
+
+  const handleDeleteCard = (cardId: string) => {
+    dispatch({ type: ActionKind.DELETE_IDEA, payload: { cardId } });
   };
 
   const sortedIdeas = useMemo(
@@ -67,7 +56,6 @@ export const App = () => {
       <Layout.Header>
         <div style={{ display: "flex" }}>
           <h1 style={{ flex: 1 }}>Idea Board</h1>
-          {/* <DebugControls setIdeas={setIdeas} /> */}
         </div>
         <Controls
           sortKey={sortKey}
