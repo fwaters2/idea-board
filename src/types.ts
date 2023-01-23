@@ -6,19 +6,14 @@ export interface Idea {
   updated?: Date;
 }
 
-export enum SortDirection {
-  ASC = "ASC",
-  DESC = "DESC",
+export interface AppState {
+  ideas: Idea[];
+  sortKey: SortKey;
+  sortDirection: SortDirection;
 }
 
-export enum SortBy {
-  CREATED = "CREATED",
-  TITLE = "TITLE",
-}
+export type SortDirection = "asc" | "desc";
 
-export enum Status {
-  SUCCESS = "SUCCESS",
-  ERROR = "ERROR",
-  IDLE = "IDLE",
-  LOADING = "LOADING",
-}
+export type SortKey = "created" | "title";
+
+export type Status = "success" | "error" | "idle" | "loading";

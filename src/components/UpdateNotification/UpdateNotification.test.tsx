@@ -9,7 +9,7 @@ describe("UpdateNotification component", () => {
     Readonly<{}>,
     React.Component<{}, {}, React.ReactNode>
   >;
-  const status = Status.SUCCESS;
+  const status: Status = "success";
   const props = { status };
 
   beforeEach(() => {
@@ -25,7 +25,7 @@ describe("UpdateNotification component", () => {
   });
 
   it("should render the Loader component if status is not SUCCESS", () => {
-    wrapper.setProps({ status: Status.LOADING });
+    wrapper.setProps({ status: "loading" });
     expect(wrapper.find("Loader").exists()).toBe(true);
   });
 });

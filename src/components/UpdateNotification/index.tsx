@@ -37,14 +37,14 @@ export const UpdateNotification = ({ status }: { status: Status }) => {
 
   // if status does not equal idle, then show the notification
   useEffect(() => {
-    if (status !== Status.IDLE) {
+    if (status !== "idle") {
       setIsVisible(true);
     }
   }, [status]);
 
   // after 2 seconds, the notification will disappear
   useEffect(() => {
-    if (status === Status.SUCCESS) {
+    if (status === "success") {
       setIsVisible(true);
       setTimeout(() => {
         setIsVisible(false);
@@ -53,7 +53,7 @@ export const UpdateNotification = ({ status }: { status: Status }) => {
   }, [status]);
   return (
     <div className={`${isVisible ? "visible" : "hidden"}`}>
-      {status === Status.SUCCESS ? <GreenCircleWithCheckSvg /> : <Loader />}
+      {status === "success" ? <GreenCircleWithCheckSvg /> : <Loader />}
     </div>
   );
 };

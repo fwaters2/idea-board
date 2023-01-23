@@ -1,20 +1,20 @@
 import React from "react";
-import { SortBy, SortDirection } from "../../types";
+import { SortKey, SortDirection } from "../../types";
 import { NewCardBtn } from "../NewCardBtn";
 import "./controls.css";
 
 interface ControlsProps {
   handleAddCard: () => void;
-  onClickSort: (sortBy: SortBy) => void;
+  onClickSort: (sortBy: SortKey) => void;
   sortDirection: SortDirection;
-  sortKey: SortBy;
+  sortKey: SortKey;
 }
 
 export const Controls = (props: ControlsProps) => {
   const { handleAddCard, onClickSort, sortDirection, sortKey } = props;
-  const getSortDirectionIcon = (key: SortBy, sortDirection: SortDirection) => {
+  const getSortDirectionIcon = (key: SortKey, sortDirection: SortDirection) => {
     if (key === sortKey) {
-      return sortDirection === SortDirection.ASC ? "↓" : "↑";
+      return sortDirection === "asc" ? "↓" : "↑";
     }
     return "⇅";
   };
@@ -24,19 +24,19 @@ export const Controls = (props: ControlsProps) => {
       <button
         className="control_btn"
         onClick={() => {
-          onClickSort(SortBy.CREATED);
+          onClickSort("created");
         }}
       >
-        <span>{getSortDirectionIcon(SortBy.CREATED, sortDirection)}</span>
+        <span>{getSortDirectionIcon("created", sortDirection)}</span>
         <span>Created</span>
       </button>
       <button
         className="control_btn"
         onClick={() => {
-          onClickSort(SortBy.TITLE);
+          onClickSort("title");
         }}
       >
-        <span>{getSortDirectionIcon(SortBy.TITLE, sortDirection)}</span>
+        <span>{getSortDirectionIcon("title", sortDirection)}</span>
         <span>Title</span>
       </button>
     </div>

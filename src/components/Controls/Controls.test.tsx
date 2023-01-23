@@ -1,6 +1,6 @@
 import React from "react";
 import { shallow, ShallowWrapper } from "enzyme";
-import { SortBy, SortDirection } from "../../types";
+import { SortKey, SortDirection } from "../../types";
 import { NewCardBtn } from "../NewCardBtn";
 import { Controls } from ".";
 
@@ -15,8 +15,8 @@ describe("Controls component", () => {
   const props = {
     handleAddCard,
     onClickSort,
-    sortDirection: SortDirection.ASC,
-    sortKey: SortBy.CREATED,
+    sortDirection: "asc" as SortDirection,
+    sortKey: "created" as SortKey,
   };
 
   beforeEach(() => {
@@ -38,11 +38,11 @@ describe("Controls component", () => {
 
   it("should call onClickSort function with SortBy.CREATED when Created button is clicked", () => {
     wrapper.find(".control_btn").first().simulate("click");
-    expect(onClickSort).toHaveBeenCalledWith(SortBy.CREATED);
+    expect(onClickSort).toHaveBeenCalledWith("created");
   });
 
   it("should call onClickSort function with SortBy.TITLE when Title button is clicked", () => {
     wrapper.find(".control_btn").at(1).simulate("click");
-    expect(onClickSort).toHaveBeenCalledWith(SortBy.TITLE);
+    expect(onClickSort).toHaveBeenCalledWith("title");
   });
 });

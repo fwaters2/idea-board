@@ -1,18 +1,18 @@
 import dayjs from "dayjs";
-import { SortBy, SortDirection } from "../types";
+import { SortKey, SortDirection } from "../types";
 
 interface SortableItem {
   title: string;
   created: Date;
 }
-export const sortBy = (key: SortBy, sortDirection: SortDirection) => {
+export const sortBy = (key: SortKey, sortDirection: SortDirection) => {
   const sortFunctions = {
-    [SortBy.TITLE]: (a: SortableItem, b: SortableItem) =>
-      sortDirection === SortDirection.ASC
+    title: (a: SortableItem, b: SortableItem) =>
+      sortDirection === "asc"
         ? a.title.localeCompare(b.title)
         : b.title.localeCompare(a.title),
-    [SortBy.CREATED]: (a: SortableItem, b: SortableItem) =>
-      sortDirection === SortDirection.ASC
+    created: (a: SortableItem, b: SortableItem) =>
+      sortDirection === "asc"
         ? dayjs(a.created).diff(dayjs(b.created))
         : dayjs(b.created).diff(dayjs(a.created)),
   };

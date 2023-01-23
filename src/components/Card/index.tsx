@@ -23,21 +23,21 @@ export const Card = (props: CardProps) => {
   const [editingTitleValue, setEditingTitleValue] = useState(title);
   const [editingDescriptionValue, setEditingDescriptionValue] =
     useState(description);
-  const [status, setStatus] = useState(Status.IDLE);
+  const [status, setStatus] = useState<Status>("idle");
   const charactersRemaining =
     MAX_CHARACTER_COUNT - editingDescriptionValue.length;
   const noCharactersRemaining = charactersRemaining <= 0;
 
   const onUpdate = useCallback(
     ({ key, value }: { key: keyof Idea; value: Idea[keyof Idea] }) => {
-      setStatus(Status.LOADING);
+      setStatus("loading");
       setTimeout(() => {
         handleUpdateCard(id, {
           ...idea,
           [key]: value,
           updated: new Date(),
         });
-        setStatus(Status.SUCCESS);
+        setStatus("success");
       }, 1000);
     },
     [handleUpdateCard, id, idea]

@@ -3,7 +3,7 @@ import dayjs from "dayjs";
 import { v4 as uuid } from "uuid";
 import "./App.css";
 import relativeTime from "dayjs/plugin/relativeTime";
-import { Idea, SortBy, SortDirection } from "./types";
+import { AppState, Idea, SortDirection, SortKey } from "./types";
 import { Cards } from "./components/Cards";
 import { sortBy } from "./utils";
 import { Card } from "./components/Card";
@@ -17,16 +17,14 @@ dayjs.extend(relativeTime);
 
 export const App = () => {
   const [ideas, setIdeas] = useState<Idea[]>([]);
-  const [sortKey, setSortKey] = useState<SortBy>(SortBy.CREATED);
-  const [sortDirection, setSortDirection] = useState<SortDirection>(
-    SortDirection.DESC
-  );
+  const [sortKey, setSortKey] = useState<SortKey>("created");
+  const [sortDirection, setSortDirection] = useState<SortDirection>("desc");
 
   // scroll to top when card is added or sortkey is changed
   const bodyRef = useRef<HTMLElement>(null);
   // previous idea count
   const prevIdeaCount = useRef(0);
-  const prevSortKey = useRef(SortBy.CREATED);
+  const prevSortKey = useRef("created");
   useEffect(() => {
     if (
       bodyRef.current &&
@@ -62,8 +60,8 @@ export const App = () => {
     setIdeas(newCards);
     localStorage.setItem("cards", JSON.stringify(newCards));
     // reset sortkey and direction
-    setSortDirection(SortDirection.DESC);
-    setSortKey(SortBy.CREATED);
+    setSortDirection("desc");
+    setSortKey("created");
   };
 
   const handleUpdateCard = (cardId: string, updatedCard: Idea) => {
@@ -104,13 +102,9 @@ export const App = () => {
     [ideas, sortKey, sortDirection]
   );
 
-  const onClickSort = (key: SortBy) => {
+  const onClickSort = (key: SortKey) => {
     setSortKey(key);
-    setSortDirection(
-      sortDirection === SortDirection.ASC
-        ? SortDirection.DESC
-        : SortDirection.ASC
-    );
+    setSortDirection(sortDirection === "asc" ? "desc" : "asc");
   };
 
   return (
