@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FocusEvent, KeyboardEvent } from "react";
+import React, { KeyboardEvent } from "react";
 import dayjs from "dayjs";
 import { Status } from "../../types";
 import { UpdateNotification } from "../UpdateNotification";
@@ -13,10 +13,10 @@ interface CardProps {
   created: Date;
   updated?: Date;
   handleDeleteCard: (cardId: string) => void;
-  onTitleChange: (event: ChangeEvent<HTMLInputElement>) => void;
-  onDescriptionChange: (event: ChangeEvent<HTMLTextAreaElement>) => void;
-  onTitleBlur: (event: FocusEvent<HTMLInputElement>) => void;
-  onDescriptionBlur: (event: FocusEvent<HTMLTextAreaElement>) => void;
+  onTitleChange: (newTitle: string) => void;
+  onDescriptionChange: (newDescription: string) => void;
+  onTitleBlur: (newTitle: string) => void;
+  onDescriptionBlur: (newDescription: string) => void;
   onKeyDown: (
     event: KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => void;
@@ -45,9 +45,9 @@ export const Card = ({
             autoFocus
             aria-label="Title"
             value={title}
-            onChange={onTitleChange}
+            onChange={(e) => onTitleChange(e.currentTarget.value)}
             onKeyDown={onKeyDown}
-            onBlur={onTitleBlur}
+            onBlur={(e) => onTitleBlur(e.currentTarget.value)}
           />
           <div className="card__subheader_container">
             {updated && (
@@ -72,8 +72,8 @@ export const Card = ({
       <textarea
         aria-label="Description"
         value={description}
-        onBlur={onDescriptionBlur}
-        onChange={onDescriptionChange}
+        onBlur={(e) => onDescriptionBlur(e.currentTarget.value)}
+        onChange={(e) => onDescriptionChange(e.currentTarget.value)}
         onKeyDown={onKeyDown}
       />
       <div className="card__footer">

@@ -1,10 +1,4 @@
-import React, {
-  ChangeEvent,
-  FocusEvent,
-  KeyboardEvent,
-  useCallback,
-  useState,
-} from "react";
+import React, { KeyboardEvent, useCallback, useState } from "react";
 import { MAX_CHARACTER_COUNT } from "../../constants";
 import { Idea, Status } from "../../types";
 import { Card as CardView } from "./Card";
@@ -41,29 +35,28 @@ export const Card = (props: CardProps) => {
     [handleUpdateCard, id, idea]
   );
 
-  const onTitleChange = (event: ChangeEvent<HTMLInputElement>) =>
-    setEditingTitleValue(event.target.value);
+  const onTitleChange = (newTitle: string) => setEditingTitleValue(newTitle);
 
-  const onDescriptionChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
+  const onDescriptionChange = (newDescription: string) => {
     const charactersRemoved =
-      event.currentTarget.value.length < editingDescriptionValue.length;
+      newDescription.length < editingDescriptionValue.length;
     if (charactersRemoved || !noCharactersRemaining) {
-      setEditingDescriptionValue(event.target.value);
+      setEditingDescriptionValue(newDescription);
     }
   };
 
-  const onTitleBlur = (event: FocusEvent<HTMLInputElement>) => {
-    if (event.target.value === title) return;
-    onUpdate({ key: "title", value: event.target.value });
+  const onTitleBlur = (newTitle: string) => {
+    if (newTitle === title) return;
+    onUpdate({ key: "title", value: newTitle });
   };
 
-  const onDescriptionBlur = (event: FocusEvent<HTMLTextAreaElement>) => {
-    if (event.target.value === description) return;
-    const tooManyCharacters = event.target.value.length > MAX_CHARACTER_COUNT;
-    if (event.target.value.trim() === "" || tooManyCharacters) {
+  const onDescriptionBlur = (newDescription: string) => {
+    if (newDescription === description) return;
+    const tooManyCharacters = newDescription.length > MAX_CHARACTER_COUNT;
+    if (newDescription.trim() === "" || tooManyCharacters) {
       setEditingDescriptionValue(description);
     } else {
-      onUpdate({ key: "description", value: event.target.value });
+      onUpdate({ key: "description", value: newDescription });
     }
   };
 
