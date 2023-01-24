@@ -10,7 +10,7 @@ import { Layout } from "./components/Layout";
 import { Controls } from "./components/Controls";
 import { EmptyPlaceholder } from "./components/EmptyPlaceholder";
 import { NewCardBtn } from "./components/NewCardBtn";
-import { ActionKind, appReducer } from "./AppReducer";
+import { appReducer } from "./AppReducer";
 import { initialState } from "./constants";
 import { useScrollToTopOnSort } from "./hooks/useScrollToTopOnSort";
 
@@ -24,22 +24,23 @@ export const App = () => {
 
   // fetch ideas on initial render
   useEffect(() => {
-    dispatch({ type: ActionKind.FETCH_IDEAS });
+    dispatch({ type: "FETCH_IDEAS" });
   }, []);
 
   const handleAddCard = () => {
-    dispatch({ type: ActionKind.CREATE_IDEA });
+    dispatch({ type: "CREATE_IDEA" });
   };
 
   const handleUpdateCard = (cardId: string, updatedIdea: Partial<Idea>) => {
     dispatch({
-      type: ActionKind.UPDATE_IDEA,
-      payload: { cardId, updatedIdea },
+      type: "UPDATE_IDEA",
+      cardId,
+      updatedIdea,
     });
   };
 
   const handleDeleteCard = (cardId: string) => {
-    dispatch({ type: ActionKind.DELETE_IDEA, payload: { cardId } });
+    dispatch({ type: "DELETE_IDEA", cardId });
   };
 
   const sortedIdeas = useMemo(
@@ -48,7 +49,7 @@ export const App = () => {
   );
 
   const onClickSort = (sortKey: SortKey) => {
-    dispatch({ type: ActionKind.SET_SORT_KEY, payload: { sortKey } });
+    dispatch({ type: "SET_SORT_KEY", sortKey });
   };
 
   return (

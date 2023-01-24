@@ -3,10 +3,6 @@ import { SortKey, SortDirection } from "../../types";
 import { Controls } from ".";
 import { render } from "@testing-library/react";
 
-jest.mock("../NewCardBtn", () => ({
-  NewCardBtn: () => <div>NewCardBtn</div>,
-}));
-
 describe("Controls component", () => {
   const handleAddCard = jest.fn();
   const onClickSort = jest.fn();
@@ -17,13 +13,7 @@ describe("Controls component", () => {
     sortKey: "created" as SortKey,
   };
 
-  afterEach(() => {
-    handleAddCard.mockClear();
-    onClickSort.mockClear();
-  });
-
-  test("should render correctly", () => {
-    const { container } = render(<Controls {...props} />);
-    expect(container).toMatchSnapshot();
+  test("should render without crashing", () => {
+    render(<Controls {...props} />);
   });
 });

@@ -2,14 +2,6 @@ import { v4 as uuid } from "uuid";
 import { initialState } from "./constants";
 import { AppState, Idea, SortKey } from "./types";
 
-export const ActionKind = {
-  CREATE_IDEA: "CREATE_IDEA",
-  FETCH_IDEAS: "FETCH_IDEAS",
-  UPDATE_IDEA: "UPDATE_IDEA",
-  DELETE_IDEA: "DELETE_IDEA",
-  SET_SORT_KEY: "SET_SORT_KEY",
-} as const;
-
 interface CreateAction {
   type: "CREATE_IDEA";
 }
@@ -20,24 +12,18 @@ interface FetchAction {
 
 interface UpdateAction {
   type: "UPDATE_IDEA";
-  payload: {
-    cardId: string;
-    updatedIdea: Partial<Idea>;
-  };
+  cardId: string;
+  updatedIdea: Partial<Idea>;
 }
 
 interface DeleteAction {
   type: "DELETE_IDEA";
-  payload: {
-    cardId: string;
-  };
+  cardId: string;
 }
 
 interface SortAction {
   type: "SET_SORT_KEY";
-  payload: {
-    sortKey: SortKey;
-  };
+  sortKey: SortKey;
 }
 
 export type AppAction =
@@ -55,10 +41,7 @@ const fetchIdeas = () => {
   return ideas ? JSON.parse(ideas) : [];
 };
 
-export const appReducer: (state: AppState, action: AppAction) => AppState = (
-  state,
-  action
-) => {
+export const appReducer = (state: AppState, action: AppAction): AppState => {
   switch (action.type) {
     case "CREATE_IDEA": {
       const newIdea: Idea = {
@@ -85,7 +68,7 @@ export const appReducer: (state: AppState, action: AppAction) => AppState = (
       };
     }
     case "UPDATE_IDEA": {
-      const { cardId, updatedIdea } = action.payload;
+      const { cardId, updatedIdea } = action;
       const ideas = state.ideas.map((idea: Idea) => {
         if (idea.id === cardId) {
           return {
@@ -102,7 +85,7 @@ export const appReducer: (state: AppState, action: AppAction) => AppState = (
       };
     }
     case "DELETE_IDEA": {
-      const { cardId } = action.payload;
+      const { cardId } = action;
       const ideas = state.ideas.filter((idea: Idea) => idea.id !== cardId);
       postIdeas(ideas);
       return {
@@ -111,7 +94,7 @@ export const appReducer: (state: AppState, action: AppAction) => AppState = (
       };
     }
     case "SET_SORT_KEY": {
-      const { sortKey } = action.payload;
+      const { sortKey } = action;
       const sortDirection =
         state.sortKey === sortKey && state.sortDirection === "asc"
           ? "desc"
@@ -122,7 +105,5 @@ export const appReducer: (state: AppState, action: AppAction) => AppState = (
         sortDirection,
       };
     }
-    default:
-      throw new Error();
   }
 };
