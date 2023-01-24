@@ -5,11 +5,9 @@ import React, {
   useCallback,
   useState,
 } from "react";
-import dayjs from "dayjs";
 import { MAX_CHARACTER_COUNT } from "../../constants";
 import { Idea, Status } from "../../types";
-import { UpdateNotification } from "../UpdateNotification";
-import "./card.css";
+import { Card as CardView } from "./Card";
 
 interface CardProps {
   idea: Idea;
@@ -78,56 +76,20 @@ export const Card = (props: CardProps) => {
   };
 
   return (
-    <div className="card">
-      <div className="card__header">
-        <div style={{ flex: 1 }}>
-          <input
-            autoFocus
-            aria-label="Title"
-            value={editingTitleValue}
-            onChange={onTitleChange}
-            onKeyDown={onKeyDown}
-            onBlur={onTitleBlur}
-          />
-          <div className="card__subheader_container">
-            {updated && (
-              <p className="card__updated timestamp">{`updated ${dayjs(
-                updated
-              ).fromNow()}`}</p>
-            )}
-            <div className="card__status_indicator">
-              <UpdateNotification status={status} />
-            </div>
-          </div>
-        </div>
-        <button
-          className="card__delete_btn"
-          onClick={() => {
-            handleDeleteCard(id);
-          }}
-        >
-          X
-        </button>
-      </div>
-      <textarea
-        aria-label="Description"
-        value={editingDescriptionValue}
-        onBlur={onDescriptionBlur}
-        onChange={onDescriptionChange}
-        onKeyDown={onKeyDown}
-      />
-      <div className="card__footer">
-        {charactersRemaining < 20 && (
-          <p
-            className={`card__character_count ${
-              noCharactersRemaining ? "error" : ""
-            }`}
-          >{`${charactersRemaining} characters remaining`}</p>
-        )}
-        <p className="card__created timestamp">{`created ${dayjs(
-          created
-        ).fromNow()}`}</p>
-      </div>
-    </div>
+    <CardView
+      id={id}
+      status={status}
+      title={editingTitleValue}
+      description={editingDescriptionValue}
+      charactersRemaining={charactersRemaining}
+      created={created}
+      updated={updated}
+      onTitleChange={onTitleChange}
+      onDescriptionChange={onDescriptionChange}
+      onTitleBlur={onTitleBlur}
+      onDescriptionBlur={onDescriptionBlur}
+      onKeyDown={onKeyDown}
+      handleDeleteCard={handleDeleteCard}
+    />
   );
 };
