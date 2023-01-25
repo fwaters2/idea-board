@@ -21,16 +21,19 @@ export const Card = (props: CardProps) => {
   const noCharactersRemaining = charactersRemaining <= 0;
 
   const onUpdate = useCallback(
-    ({ key, value }: { key: keyof Idea; value: Idea[keyof Idea] }) => {
+    async ({ key, value }: { key: keyof Idea; value: Idea[keyof Idea] }) => {
       setStatus("loading");
-      setTimeout(() => {
+      try {
+        await new Promise((resolve) => setTimeout(resolve, 1000));
         handleUpdateCard(id, {
           ...idea,
           [key]: value,
           updated: new Date(),
         });
         setStatus("success");
-      }, 1000);
+      } catch (e) {
+        console.error(e);
+      }
     },
     [handleUpdateCard, id, idea]
   );

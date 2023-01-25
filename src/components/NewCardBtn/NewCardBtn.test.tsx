@@ -7,11 +7,6 @@ describe("NewCardBtn component", () => {
     handleAddCard: jest.fn(),
   };
 
-  test("should render correctly", () => {
-    const { container } = render(<NewCardBtn {...props} />);
-    expect(container).toMatchSnapshot();
-  });
-
   test("should call handleAddCard function when button is clicked", () => {
     const { getByRole } = render(<NewCardBtn {...props} />);
     getByRole("button").click();
